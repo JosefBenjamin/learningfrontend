@@ -1,0 +1,105 @@
+/* DISPLAY GRID: Best for "macro" layouts (defining columns/rows).
+   100vh: Viewport Height. 100vh = 100% of the visible screen height. 
+   Using this ensures the page layout never collapses if content is short. */
+.wrapper {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  min-height: 100vh;
+}
+
+/* POSITION FIXED: Takes element out of flow and locks it to the screen.
+   BOX-SIZING BORDER-BOX: Critical! It forces padding and borders to stay 
+   INSIDE the 25% width. without this, 25% width + 1rem padding = 25% + 2rem (overflow). */
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: var(--bg-card);
+  border-left: 1px solid var(--text-dim);
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 25%;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* DISPLAY FLEX: best for "micro" layouts (lining things up in a row/column).
+   TRANSITION: Animates changes. Here it makes the hover effect fade in slowly (0.3s). */
+.logoLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: var(--transititon);
+  margin-bottom: 2rem;
+}
+
+/* HOVER: A "pseudo-class" that triggers only when the mouse is over the element. */
+.logoLink:hover {
+  opacity: 0.8;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* REM: "Root EM". Relative to the default font size (usually 16px).
+   1rem = 16px. Using REM allows the layout to scale if users change browser zoom. */
+.link {
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  transition: var(--transititon);
+  text-align: center;
+}
+
+.link:hover {
+  color: var(--text-main);
+  background-color: rgba(139, 92, 246, 0.1);
+}
+
+.active {
+  color: var(--accent-purple);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  background-color: rgba(139, 92, 246, 0.15);
+  text-align: center;
+}
+
+/* OVERFLOW-Y AUTO: Creates an independent scrollbar for this section only.
+   Because height is 100vh, if the content inside is 200vh, this div scrolls 
+   but the rest of the layout (like the fixed navbar) stays perfectly still. */
+.main {
+  color: var(--text-main);
+  overflow-y: auto;
+  padding: 2rem;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.authContainer {
+  max-width: 400px;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  margin-top: auto;
+}

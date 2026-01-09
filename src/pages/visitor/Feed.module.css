@@ -1,0 +1,29 @@
+.feedContainer {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.resourceList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-dim);
+}
+
+.error {
+  text-align: center;
+  padding: 2rem;
+  color: #ef4444;
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-dim);
+}

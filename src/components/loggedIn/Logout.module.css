@@ -1,0 +1,18 @@
+.logoutBtn {
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  transition: var(--transititon);
+  text-align: center;
+  background: none;
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
+  width: 100%;
+}
+
+.logoutBtn:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}

@@ -1,0 +1,21 @@
+:root {
+    --bg-darkmode: #20212D; /* Dark mode background color */
+    --bg-card: #383350; /* Card background color */
+
+    --accent-purple: hsl(258, 90%, 66%);
+    --accent-hover: #a78bfa;
+    --text-main: #e2e8f0;
+    --text-dim: #94a3b8;
+    --logo-color: #38A169;
+
+    --radius: 8px;
+    --transititon: 0.3s ease;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-darkmode);
+    color: var(--text-main);
+    font-family: 'Inter', system-uni, sans-serif;
+    min-height: 100vh;
+}

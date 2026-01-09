@@ -1,37 +1,22 @@
-import { NavLink, Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Layout from './pages/Layout'
+import Feed from './pages/visitor/Feed'
+
 
 function App() {
-
   return (
     <>
-    <header>
-      <div>
-        Learn Datamatiker.Dev
-      </div>
-    <nav>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/about">About</NavLink>
-      <NavLink to="/courses">Courses</NavLink>
-      <NavLink to="/contact">Contact</NavLink>
-    </nav>
-    </header>
-
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/courses" element={<Courses />} />
-      <Route path="/contact" element={<Contact />} />
-    </Routes>
-
-    <footer>
-      <div>
-      <p>© 2026 Datamatiker.Dev</p>
-      </div>
-    </footer>
-
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Feed />} />
+          <Route path="login" element={<Feed />} />
+          <Route path="register" element={<Feed />} />
+          <Route path="create" element={<Feed />} />
+        </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
 export default App
