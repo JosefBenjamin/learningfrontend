@@ -1,0 +1,107 @@
+.card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Format badge (VIDEO, ARTICLE, etc.) - top right */
+.formatBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--accent-purple);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Sub category badge - below format badge */
+.subBadge {
+  position: absolute;
+  top: 2.75rem;
+  right: 1rem;
+  background-color: rgba(139, 92, 246, 0.3);
+  color: var(--text-main);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  color: var(--text-main);
+  padding-right: 8rem;
+}
+
+.description {
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  opacity: 0.8;
+}
+
+/* Container for YouTube embed - maintains 16:9 aspect ratio */
+.embedContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  margin: 1rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.youtubeEmbed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius);
+}
+
+/* Styled link button for non-video resources */
+.resourceLink {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--bg-darkmode);
+  color: var(--accent-purple);
+  text-decoration: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 1px solid var(--accent-purple);
+}
+
+.resourceLink:hover {
+  background-color: var(--accent-purple);
+  color: white;
+}

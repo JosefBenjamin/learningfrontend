@@ -1,0 +1,83 @@
+.btn{
+    background-color: var(--primary);
+    color: #47A070;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: var(--radius);
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: var(--transititon);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    color: white;
+    background-color: var(--accent-hover);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin: 0;
+  text-align: center;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.input {
+  background-color: var(--bg-darkmode);
+  border: 1px solid var(--text-dim);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  color: var(--text-main);
+  font-size: 1rem;
+  transition: border-color var(--transititon);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-purple);
+}
+
+.loginMsg {
+  text-align: center;
+  color: rgba(232, 226, 234, 0.767);
+  font-family: 'Fira Code', 'Courier New', monospace; 
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0; 
+}
+
+/* The text inside the code block */
+.loginBodyMsg {
+  text-align: center;
+  color: rgb(92, 110, 191);
+  font-size: 1rem;
+  margin: 0.25rem 0; 
+  font-family: monospace;
+  opacity: 0.8;
+}
+
+.loginMsg:last-of-type {
+  margin-bottom: 2rem;
+}
