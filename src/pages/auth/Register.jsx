@@ -23,8 +23,8 @@ function Register() {
     try {
       await apiFacade.register(
         username.value,
-        screenName.value,
-        githubProfile.value,
+        screenName.value || null, 
+        githubProfile.value || null,
         password.value
       );
       window.location.href = "/";
