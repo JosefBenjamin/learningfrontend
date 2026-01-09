@@ -5,21 +5,37 @@ import styles from "./CreateResource.module.css";
 
 // Enum values from your Java backend
 const FORMAT_CATEGORIES = [
-  "VIDEO",
-  "ARTICLE",
-  "DOCUMENTATION",
-  "TUTORIAL",
+  "BOOK",
   "COURSE",
+  "DOCUMENT",
+  "GAME",
+  "IMAGE",
+  "MAGAZINE",
+  "MOVIE",
+  "MUSIC",
+  "PODCAST",
+  "SERIES",
+  "SOFTWARE",
+  "VIDEO",
+  "QUOTE",
 ];
+
 const SUB_CATEGORIES = [
-  "JAVA",
-  "JAVASCRIPT",
-  "REACT",
-  "SQL",
-  "GIT",
-  "REST_API",
-  "TESTING",
-  "OTHER",
+  "ANALYSIS",
+  "CHALLENGE",
+  "DEEP_DIVE",
+  "ENTERTAINMENT",
+  "GUIDE",
+  "HOW_TO_BUILD",
+  "INFOTAINMENT",
+  "MINDSET",
+  "MOTIVATION",
+  "NEWS",
+  "PRODUCTIVITY",
+  "REVIEW",
+  "STORYTELLING",
+  "SUMMARY",
+  "TUTORIAL",
 ];
 
 function CreateResource() {
