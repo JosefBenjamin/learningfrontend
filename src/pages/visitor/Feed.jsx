@@ -3,7 +3,7 @@ import { useParams, useOutletContext } from "react-router-dom";
 import FeedLogo from "../../components/FeedLogo";
 import LearningResource from "../../components/visitor/LearningResource";
 import apiFacade from "../../apiFacade";
-import { searchFilter } from "../../utilities";
+import { searchFilter, sortResources } from "../../utilities";
 import styles from "./Feed.module.css";
 
 function Feed() {
@@ -12,6 +12,8 @@ function Feed() {
   const [error, setError] = useState("");
   const { filter } = useParams(); // :filter from URL
   const { searchQuery } = useOutletContext(); // Get search from Layout
+  const [sortOption, setSortOption] = useState("NEWEST");
+
 
   // Fetch all resources once when component mounts
   useEffect(() => {
@@ -36,10 +38,45 @@ function Feed() {
     };
 
     loadResources();
-  }, [filter]); // Run on mount and when filter changes
+  }, [filter]); // runs on mount and when filter changes
+
+  const getCompareFunction = (option) => {
+    switch (option) {
+      case "A -> Z":
+        return (a, b) => a.title.localeCompare(b.title);
+
+      case "OLDEST":
+        return (a, b) => new Date(a.createdAt) - new Date(b.createdAt);
+
+      case "MOST CONTRIBUTIONS":
+        return (a, b) => {
+          const aContribs =
+            a.simpleContributorDTO?.contributions ||
+            a.contributorNameDTO?.contributions ||
+            0;
+          const bContribs =
+            b.simpleContributorDTO?.contributions ||
+            b.contributorNameDTO?.contributions ||
+            0;
+          return bContribs - aContribs; // Descending (most first)
+        };
+      case "NEWEST":
+      default:
+        return (a, b) => new Date(b.createdAt) - new Date(a.createdAt);
+    }
+  };
+
+
 
   // Filter resources based on search query
   const filteredResources = resources.filter(searchFilter(searchQuery));
+  const compareResources = sortResources(filteredResources, getCompareFunction(sortOption));
+
+
+
+
+
+
 
   if (loading) {
     return <div className={styles.loading}>Loading...</div>;
@@ -54,12 +91,27 @@ function Feed() {
     <div className={styles.feedContainer}>
       <FeedLogo />
 
+      <div className={styles.sortContainer}>
+        <label htmlFor="sort">Sort by: </label>
+        <select
+          id="sort"
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className={styles.sortSelect}
+        >
+          <option value="NEWEST">Newest</option>
+          <option value="OLDEST">Oldest</option>
+          <option value="A -> Z">A → Z</option>
+          <option value="MOST CONTRIBUTIONS">Most Contributions</option>
+        </select>
+      </div>
+
       <div className={styles.resourceList}>
-        {filteredResources.map((resource) => (
+        {compareResources.map((resource) => (
           <LearningResource key={resource.learningId} resource={resource} />
         ))}
 
-        {filteredResources.length === 0 && (
+        {compareResources.length === 0 && (
           <p className={styles.empty}>No resources found.</p>
         )}
       </div>
