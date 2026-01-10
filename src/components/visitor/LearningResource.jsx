@@ -7,23 +7,21 @@ function LearningResource({ resource }) {
   console.log("Contributor:", resource.simpleContributorDTO);
   console.log("CreatedAt:", resource.createdAt);
 
+  const contributor = resource.simpleContributorDTO || resource.contributorNameDTO;
 
   let contributorName = "Anonymous";
-  if(resource.simpleContributorDTO) {
-    if(resource.simpleContributorDTO.githubProfile) {
-      contributorName = resource.simpleContributorDTO.githubProfile;
-  } else if(resource.simpleContributorDTO.screenName) {
-      contributorName = resource.simpleContributorDTO.screenName;
+  if (contributor) {
+    if (contributor.githubProfile) {
+      contributorName = contributor.githubProfile;
+    } else if (contributor.screenName) {
+      contributorName = contributor.screenName;
     }
   }
 
   let totalContributions = 0;
-  if(resource.simpleContributorDTO) {
-    if(resource.simpleContributorDTO.contributions){
-      totalContributions = resource.simpleContributorDTO.contributions;
-    }
-  };
-
+  if (contributor?.contributions) {
+    totalContributions = contributor.contributions;
+  }
 
   const getYouTubeId = (url) => {
     if (!url) {
@@ -93,7 +91,9 @@ function LearningResource({ resource }) {
           By {contributorName} who has {totalContributions} contributions.
         </span>
         <span>•</span>
-        <span>{new Date(resource.createdAt).toLocaleDateString()}</span>
+        <span>
+          {resource.createdAt ? new Date(resource.createdAt).toLocaleDateString() : "Date data unavailable"}
+        </span>
       </div>
     </article>
   );

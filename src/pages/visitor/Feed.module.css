@@ -27,3 +27,37 @@
   padding: 4rem;
   color: var(--text-dim);
 }
+
+.sortContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.sortContainer label {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.sortSelect {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--text-dim);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transititon);
+}
+
+.sortSelect:hover {
+  border-color: var(--logo-color);
+}
+
+.sortSelect:focus {
+  outline: none;
+  border-color: var(--logo-color);
+  box-shadow: 0 0 0 2px rgba(56, 161, 105, 0.2);
+}

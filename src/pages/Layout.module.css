@@ -1,15 +1,10 @@
-/* DISPLAY GRID: Best for "macro" layouts (defining columns/rows).
-   100vh: Viewport Height. 100vh = 100% of the visible screen height. 
-   Using this ensures the page layout never collapses if content is short. */
 .wrapper {
   display: grid;
   grid-template-columns: 75% 25%;
   min-height: 100vh;
 }
 
-/* POSITION FIXED: Takes element out of flow and locks it to the screen.
-   BOX-SIZING BORDER-BOX: Critical! It forces padding and borders to stay 
-   INSIDE the 25% width. without this, 25% width + 1rem padding = 25% + 2rem (overflow). */
+
 .navbar {
   display: flex;
   flex-direction: column;
@@ -26,8 +21,7 @@
   overflow-y: auto;
 }
 
-/* DISPLAY FLEX: best for "micro" layouts (lining things up in a row/column).
-   TRANSITION: Animates changes. Here it makes the hover effect fade in slowly (0.3s). */
+
 .logoLink {
   display: flex;
   align-items: center;
@@ -37,7 +31,6 @@
   margin-bottom: 2rem;
 }
 
-/* HOVER: A "pseudo-class" that triggers only when the mouse is over the element. */
 .logoLink:hover {
   opacity: 0.8;
 }
@@ -50,8 +43,7 @@
   width: 100%;
 }
 
-/* REM: "Root EM". Relative to the default font size (usually 16px).
-   1rem = 16px. Using REM allows the layout to scale if users change browser zoom. */
+
 .link {
   color: var(--text-dim);
   text-decoration: none;

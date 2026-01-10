@@ -22,5 +22,9 @@ export function searchFilter(query){
     };
 }
 
+export function sortResources(resources, compareFunc) {
+    return [...resources].sort(compareFunc);
+}
+
 
 // Other subjects 
