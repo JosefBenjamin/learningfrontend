@@ -1,10 +1,12 @@
 import { useState } from "react";
 import apiFacade from "../../apiFacade";
 import styles from "./Register.module.css";
+import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Register({ onLoginChange }) {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const navigate= useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents the page from reloading
@@ -27,7 +29,8 @@ function Register() {
         githubProfile.value || null,
         password.value
       );
-      window.location.href = "/";
+      onLoginChange();
+      navigate("/");
     } catch (err) {
       setErrorMsg(err.fullErrorData?.msg || "Registration failed. Try again.");
     } finally {

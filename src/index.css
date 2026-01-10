@@ -1,6 +1,6 @@
 :root {
-    --bg-darkmode: #20212D; /* Dark mode background color */
-    --bg-card: #383350; /* Card background color */
+    --bg-darkmode: #20212D; 
+    --bg-card: #383350; 
 
     --accent-purple: hsl(258, 90%, 66%);
     --accent-hover: #a78bfa;
