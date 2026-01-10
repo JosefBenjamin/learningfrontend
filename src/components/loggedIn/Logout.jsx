@@ -1,16 +1,20 @@
 import apiFacade from "../../apiFacade";
 import styles from "./Logout.module.css";
+import { useNavigate } from "react-router-dom";
 
-function Logout() {
+function Logout({ onLoginChange }) {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     apiFacade.logout();
-    window.location.href = "/";
+    onLoginChange();
+    navigate("/");
   };
 
   return (
-    <button onClick={handleLogout} className={styles.logoutBtn}>
-      Logout
-    </button>
+      <button onClick={handleLogout} className={styles.logoutBtn}>
+        Logout
+      </button>
   );
 }
 

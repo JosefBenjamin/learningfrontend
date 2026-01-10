@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiFacade from "../../apiFacade";
 import styles from "./CreateResource.module.css";
+import { formatCategory } from "../../utilities";
 
-// Enum values from your Java backend
+
 const FORMAT_CATEGORIES = [
   "BOOK",
   "COURSE",
@@ -65,7 +66,7 @@ function CreateResource() {
       await apiFacade.createResource(resourceData);
       setSuccessMsg("Resource created successfully!");
       e.target.reset();
-      // Optionally redirect after a short delay
+      // redirect after a short delay
       setTimeout(() => navigate("/"), 1500);
     } catch (err) {
       setErrorMsg(
@@ -111,7 +112,7 @@ function CreateResource() {
           <option value="">Select format</option>
           {FORMAT_CATEGORIES.map((cat) => (
             <option key={cat} value={cat}>
-              {cat}
+              {formatCategory(cat)}
             </option>
           ))}
         </select>
@@ -120,7 +121,7 @@ function CreateResource() {
           <option value="">Select category</option>
           {SUB_CATEGORIES.map((cat) => (
             <option key={cat} value={cat}>
-              {cat}
+              {formatCategory(cat)}
             </option>
           ))}
         </select>

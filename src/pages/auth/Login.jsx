@@ -1,10 +1,12 @@
 import { useState } from "react";
 import apiFacade from "../../apiFacade";
 import styles from "./Login.module.css";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ onLoginChange }) {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevents the page from reloading
@@ -16,8 +18,8 @@ function Login() {
 
     try {
       await apiFacade.login(username.value, password.value);
-      // refresh UI via redirection
-      window.location.href = "/";
+      onLoginChange();
+      navigate("/"); 
     } catch (err) {
       setErrorMsg(err.fullErrorData?.msg || "Login failed. Try again.");
     } finally {

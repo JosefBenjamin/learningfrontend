@@ -103,3 +103,26 @@
   color: var(--text-dim);
   margin-top: auto;
 }
+
+.searchInput {
+  width: 90%;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background-color: var(--bg-darkmode);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  transition: var(--transititon);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--logo-color);
+  box-shadow: 0 0 0 2px rgba(56, 161, 105, 0.2);
+}
+
+.searchInput::placeholder {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+}

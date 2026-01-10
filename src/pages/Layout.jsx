@@ -1,30 +1,33 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, Outlet } from "react-router-dom";
+import { useState } from "react";
 import styles from "./Layout.module.css";
 import Logo from "../components/Logo.jsx";
 import Login from "./auth/Login.jsx";
 import Register from "./auth/Register.jsx";
 import CreateResource from "../components/loggedIn/CreateResource.jsx";
-import apiFacade from "../apiFacade.js";
-import Feed from "./visitor/Feed.jsx";
+import Logout from "../components/loggedIn/Logout.jsx";
 
-function Layout() {
+// Now receives isLoggedIn and onLoginChange as props
+function Layout({ isLoggedIn, onLoginChange }) {
   const location = useLocation();
-  const isLoggedIn = apiFacade.isLoggedIn();
-  
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Check if we're on a feed page (where search makes sense)
+  const isOnFeed = location.pathname === "/" || location.pathname.startsWith("/feed");
 
   // Sidebar dynamic rendering
   const renderSidebarContent = () => {
     if (location.pathname === "/login" && !isLoggedIn) {
       return (
         <div className={styles.authContainer}>
-          <Login />
+          <Login onLoginChange={onLoginChange} />
         </div>
       );
     }
     if (location.pathname === "/register" && !isLoggedIn) {
       return (
         <div className={styles.authContainer}>
-          <Register />
+          <Register onLoginChange={onLoginChange} />
         </div>
       );
     }
@@ -57,15 +60,7 @@ function Layout() {
             >
               Create Resource
             </NavLink>
-            <button
-              onClick={() => {
-                apiFacade.logout();
-                window.location.href = "/";
-              }}
-              className={styles.link}
-            >
-              Logout
-            </button>
+            <Logout onLoginChange={onLoginChange} /> 
           </>) : ( <>
             <NavLink
               to="/login"
@@ -93,16 +88,24 @@ function Layout() {
   // Main layout structure
   return (
     <div className={styles.wrapper}>
-      {/* The 75% area: We always keep the Feed here unless viewing a resource */}
-      <main className={styles.main}>
-        <Feed />
+      <main className={styles.mainContent}>
+        <Outlet context={{ searchQuery }} />
       </main>
 
-      {/* The 25% area: This side changes content dynamically */}
       <nav className={styles.navbar}>
         <NavLink to="/" className={styles.logoLink}>
           <Logo />
         </NavLink>
+
+        {isOnFeed && (
+          <input
+            type="text"
+            placeholder="Search resources..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className={styles.searchInput}
+          />
+        )}
 
         {renderSidebarContent()}
 
