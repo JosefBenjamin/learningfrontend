@@ -6,37 +6,27 @@ import { formatCategory } from "../../utilities";
 
 
 const FORMAT_CATEGORIES = [
-  "BOOK",
-  "COURSE",
-  "DOCUMENT",
-  "GAME",
-  "IMAGE",
-  "MAGAZINE",
-  "MOVIE",
-  "MUSIC",
+  "PDF",
+  "YOUTUBE",
+  "ARTICLE",
+  "EBOOK",
   "PODCAST",
-  "SERIES",
-  "SOFTWARE",
-  "VIDEO",
-  "QUOTE",
+  "GAME",
+  "BLOGPOST",
+  "OTHER",
 ];
 
 const SUB_CATEGORIES = [
-  "ANALYSIS",
-  "CHALLENGE",
-  "DEEP_DIVE",
-  "ENTERTAINMENT",
-  "GUIDE",
-  "HOW_TO_BUILD",
-  "INFOTAINMENT",
-  "MINDSET",
-  "MOTIVATION",
-  "NEWS",
-  "PRODUCTIVITY",
-  "REVIEW",
-  "STORYTELLING",
-  "SUMMARY",
-  "TUTORIAL",
+  "PROGRAMMING",
+  "WEB_DEVELOPMENT",
+  "DATA_SCIENCE",
+  "DATABASES",
+  "DEVOPS",
+  "ALGORITHMS",
+  "SECURITY",
+  "MOBILE",
+  "DESIGN",
+  "CAREER"
 ];
 
 function CreateResource() {
