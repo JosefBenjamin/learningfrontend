@@ -18,9 +18,13 @@ function Login({ onLoginChange }) {
 
     try {
       await apiFacade.login(username.value, password.value);
+      console.log("Login successful, token stored");
       onLoginChange();
-      navigate("/"); 
+      console.log("onLoginChange completed");
+      navigate("/");
+      console.log("navigate completed");
     } catch (err) {
+      console.error("Error caught:", err);
       setErrorMsg(err.fullErrorData?.msg || "Login failed. Try again.");
     } finally {
       setLoading(false);
