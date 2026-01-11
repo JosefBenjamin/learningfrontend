@@ -6,20 +6,25 @@ import { useState } from 'react';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(apiFacade.isLoggedIn);
+  const [isLoggedIn, setIsLoggedIn] = useState(apiFacade.isLoggedIn());
 
   const handleLoginChange = () => {
     setIsLoggedIn(apiFacade.isLoggedIn());
   };
 
-
-
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route 
+          path="/" 
+          element={
+            <Layout 
+              isLoggedIn={isLoggedIn} 
+              onLoginChange={handleLoginChange} 
+            />
+          }
+        >
           <Route index element={<Feed />} />
-          <Route path="/" element={<Layout isLoggedIn={isLoggedIn} onLoginChange={handleLoginChange} />} />
           <Route path="login" element={<Feed />} />
           <Route path="register" element={<Feed />} />
           <Route path="create" element={<Feed />} />
