@@ -1,34 +1,71 @@
 import { useState, useEffect } from "react";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useSearchParams, useOutletContext } from "react-router-dom";
 import FeedLogo from "../../components/FeedLogo";
 import LearningResource from "../../components/visitor/LearningResource";
 import apiFacade from "../../apiFacade";
-import { searchFilter, sortResources } from "../../utilities";
+import { searchFilter, sortResources, formatCategory } from "../../utilities";
 import styles from "./Feed.module.css";
 
 function Feed() {
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { filter } = useParams(); // :filter from URL
-  const { searchQuery } = useOutletContext(); // Get search from Layout
   const [sortOption, setSortOption] = useState("NEWEST");
 
+  //seach
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filter = searchParams.get("filter"); // ?filter=newest or ?filter=updated
+  const formatFilter = searchParams.get("format"); // ?format=YOUTUBE
+  const subFilter = searchParams.get("sub"); // ?sub=PROGRAMMING
+  const { searchQuery, isLoggedIn } = useOutletContext(); // Get search and auth from Layout
+
+  const FORMAT_CATEGORIES = [
+    "PDF",
+    "YOUTUBE",
+    "ARTICLE",
+    "EBOOK",
+    "PODCAST",
+    "GAME",
+    "BLOGPOST",
+    "OTHER",
+  ];
+
+  const SUB_CATEGORIES = [
+    "PROGRAMMING",
+    "WEB_DEVELOPMENT",
+    "DATA_SCIENCE",
+    "DATABASES",
+    "DEVOPS",
+    "ALGORITHMS",
+    "SECURITY",
+    "MOBILE",
+    "DESIGN",
+    "CAREER",
+  ];
 
   // Fetch all resources once when component mounts
   useEffect(() => {
     const loadResources = async () => {
+      setLoading(true);
+      setError("");
       try {
-        let data = "";
-        if(filter === "newest") {
-          data = await apiFacade.newestFeed();
-        } else if(filter === "updated") {
-          data = await apiFacade.updatedFeed();
+        let response;
+        // Category filters require authentication
+        if (formatFilter && isLoggedIn) {
+          response = await apiFacade.feedByFormat(formatFilter);
+        } else if (subFilter && isLoggedIn) {
+          response = await apiFacade.feedBySubCategory(subFilter);
+        } else if (filter === "newest") {
+          response = await apiFacade.newestFeed();
+        } else if (filter === "updated") {
+          response = await apiFacade.updatedFeed();
         } else {
-          data = await apiFacade.feed();
+          response = await apiFacade.feed();
         }
 
-        setResources(data);
+        // Handle paginated response (has .content) or direct array
+        const data = response.content || response;
+        setResources(Array.isArray(data) ? data : []);
       } catch (err) {
         setError("Failed to load resources");
         console.error(err);
@@ -38,7 +75,26 @@ function Feed() {
     };
 
     loadResources();
-  }, [filter]); // runs on mount and when filter changes
+  }, [filter, formatFilter, subFilter, isLoggedIn]); // runs on mount and when filters change
+
+  // Handle filter changes
+  const handleFormatChange = (event) => {
+    const value = event.target.value;
+    if (value) {
+      setSearchParams({ format: value });
+    } else {
+      setSearchParams({});
+    }
+  };
+
+  const handleSubChange = (event) => {
+    const value = event.target.value;
+    if (value) {
+      setSearchParams({ sub: value });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   const getCompareFunction = (option) => {
     switch (option) {
@@ -66,26 +122,20 @@ function Feed() {
     }
   };
 
-
-
   // Filter resources based on search query
   const filteredResources = resources.filter(searchFilter(searchQuery));
-  const compareResources = sortResources(filteredResources, getCompareFunction(sortOption));
-
-
-
-
-
-
+  const compareResources = sortResources(
+    filteredResources,
+    getCompareFunction(sortOption)
+  );
 
   if (loading) {
     return <div className={styles.loading}>Loading...</div>;
   }
-    
+
   if (error) {
-          return <div className={styles.error}>{error}</div>;
+    return <div className={styles.error}>{error}</div>;
   }
-    
 
   return (
     <div className={styles.feedContainer}>
@@ -104,11 +154,44 @@ function Feed() {
           <option value="A -> Z">A → Z</option>
           <option value="MOST CONTRIBUTIONS">Most Contributions</option>
         </select>
+
+        {isLoggedIn && (
+          <>
+            <select
+              value={formatFilter || ""}
+              onChange={handleFormatChange}
+              className={styles.sortSelect}
+            >
+              <option value="">All Formats</option>
+              {FORMAT_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {formatCategory(cat)}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={subFilter || ""}
+              onChange={handleSubChange}
+              className={styles.sortSelect}
+            >
+              <option value="">All Categories</option>
+              {SUB_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {formatCategory(cat)}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
       </div>
 
       <div className={styles.resourceList}>
         {compareResources.map((resource) => (
-          <LearningResource key={resource.learningId} resource={resource} />
+          <LearningResource
+            key={resource.learningId}
+            resource={resource}
+          />
         ))}
 
         {compareResources.length === 0 && (

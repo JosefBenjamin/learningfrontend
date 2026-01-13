@@ -2,11 +2,6 @@ import styles from "./LearningResource.module.css";
 import defaultImage from "../../assets/datdevdefault.png";
 
 function LearningResource({ resource }) {
-  //For debugging purposes
-  console.log("Resource data:", resource);
-  console.log("Contributor:", resource.simpleContributorDTO);
-  console.log("CreatedAt:", resource.createdAt);
-
   const contributor = resource.simpleContributorDTO || resource.contributorNameDTO;
 
   let contributorName = "Anonymous";

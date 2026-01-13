@@ -7,7 +7,7 @@ const RESOURCES_NEW_PATH = API_BASE_URL + "/resources/newest";
 const RESOURCES_UPDATED_PATH = API_BASE_URL + "/resources/updated";
 
 
-// <---- UTILITY FUNCTIONS ---->
+// <---- Token Utility ---->
 const setToken = (token) => {
     localStorage.setItem("jwtToken", token);
 }
@@ -20,11 +20,21 @@ const logout = () => {
     localStorage.removeItem("jwtToken");
 }
 
+
 const isLoggedIn = () => {
-    return getToken() !== null;
+    const jwtToken = getToken();
+    if (!jwtToken) {
+        return false;
+    }
+    try {
+        const payload = JSON.parse(atob(jwtToken.split(".")[1]));
+        return payload.exp * 1000 > Date.now();
+    } catch {
+        return false;
+    }
 }
 
-// HTTP VERB (GET, POST, DELETE, PUT), boolean addToken, body is to send 
+// HTTP VERBS {GET, POST, PUT, PATCH, DELETE} / addToken is a boolean / body is a JS object
 const makeOptions = (httpVerb, addToken, body) => {
     const options = {
         method: httpVerb,
@@ -34,20 +44,29 @@ const makeOptions = (httpVerb, addToken, body) => {
         }
     };
 
+    
     if(addToken && isLoggedIn()){
         options.headers["Authorization"] = 'Bearer ' + getToken();
     }
     if(body){
         //Serialize body to JSON string
+        //dynamically adds body object to options
         options.body = JSON.stringify(body);
     }
     return options;
 }
 
+
 const handleHttpErrors = async (response) => {
     if(!response.ok){
-        const fullErrorData = await response.json();
-        throw {status: response.status, fullErrorData};
+        let allErrorData;
+        try {
+            allErrorData = await response.json();
+        } catch {
+            allErrorData = { message: `HTTP Error ${response.status}`};
+        }
+        throw { status: response.status, 
+            fullErrorData: allErrorData };
     }
     return response.json();
 }
@@ -81,11 +100,11 @@ const login = async (username, password) => {
     return data;
 }
 
-const feed = async (page = 0, size) => {
+const feed = async (page = 0, limit) => {
     const options = makeOptions("GET", false, null);
     // pagination
     const response = await fetch(API_BASE_URL +
-         "/resources?page=" + page + "&size=" + size,
+         "/resources?page=" + page + "&limit=" + limit,
          options);
     return handleHttpErrors(response);
 }
@@ -96,17 +115,30 @@ const createResource = async (resourceData) => {
     return handleHttpErrors(response);
 }
 
-const newestFeed = async (page = 0, size) => {
+const newestFeed = async (page = 0, limit) => {
     const options = makeOptions("GET", false, null);
     const response = await fetch(RESOURCES_NEW_PATH +
-         "?page=" + page + "&size=" + size, options);
+         "?page=" + page + "&limit=" + limit, options);
     return handleHttpErrors(response);
 }
 
-const updatedFeed = async (page = 0, size) => {
+const updatedFeed = async (page = 0, limit) => {
     const options = makeOptions("GET", false, null);
     const response = await fetch(RESOURCES_UPDATED_PATH +
-         "?page=" + page + "&size=" + size, options);
+         "?page=" + page + "&limit=" + limit, options);
+    return handleHttpErrors(response);
+}
+
+// <---- CATEGORY FILTERS (REQUIRES AUTH) ---->
+const feedByFormat = async (formatCategory) => {
+    const options = makeOptions("GET", true, null);
+    const response = await fetch(RESOURCES_PATH + "/format/" + formatCategory, options);
+    return handleHttpErrors(response);
+}
+
+const feedBySubCategory = async (subCategory) => {
+    const options = makeOptions("GET", true, null);
+    const response = await fetch(RESOURCES_PATH + "/sub/" + subCategory, options);
     return handleHttpErrors(response);
 }
 
@@ -119,7 +151,9 @@ const apiFacade = {
     feed,
     createResource,
     newestFeed,
-    updatedFeed
+    updatedFeed,
+    feedByFormat,
+    feedBySubCategory
 };
 
 export default apiFacade;

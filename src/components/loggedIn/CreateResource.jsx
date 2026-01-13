@@ -60,7 +60,7 @@ function CreateResource() {
       setTimeout(() => navigate("/"), 1500);
     } catch (err) {
       setErrorMsg(
-        err.fullErrorData?.msg || "Failed to create resource. Try again."
+        err.fullErrorData?.message || "Failed to create resource. Try again."
       );
     } finally {
       setLoading(false);

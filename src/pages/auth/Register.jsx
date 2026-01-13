@@ -8,13 +8,13 @@ function Register({ onLoginChange }) {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate= useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents the page from reloading
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevents the page from reloading
     setLoading(true);
     setErrorMsg("");
 
     const { username, githubProfile, screenName, password, confirmPassword } =
-      e.target.elements;
+      event.target.elements;
 
     if (password.value !== confirmPassword.value) {
       setErrorMsg("Passwords do not match");
@@ -31,8 +31,8 @@ function Register({ onLoginChange }) {
       );
       onLoginChange();
       navigate("/");
-    } catch (err) {
-      setErrorMsg(err.fullErrorData?.msg || "Registration failed. Try again.");
+    } catch {
+         setErrorMsg("Registration failed. Try again.");
     } finally {
       setLoading(false);
     }

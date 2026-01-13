@@ -13,7 +13,7 @@
 .loading {
   text-align: center;
   padding: 2rem;
-  color: var(--text-dim);
+  color: var(--color-text-muted);
 }
 
 .error {
@@ -25,7 +25,7 @@
 .empty {
   text-align: center;
   padding: 4rem;
-  color: var(--text-dim);
+  color: var(--color-text-muted);
 }
 
 .sortContainer {
@@ -37,27 +37,27 @@
 }
 
 .sortContainer label {
-  color: var(--text-dim);
+  color: var(--color-text-muted);
   font-size: 0.9rem;
 }
 
 .sortSelect {
   padding: 0.5rem 1rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--text-dim);
-  background-color: var(--bg-card);
-  color: var(--text-main);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-text-muted);
+  background-color: var(--color-card);
+  color: var(--color-text);
   font-size: 0.9rem;
   cursor: pointer;
-  transition: var(--transititon);
+  transition: var(--transition);
 }
 
 .sortSelect:hover {
-  border-color: var(--logo-color);
+  border-color: var(--color-success);
 }
 
 .sortSelect:focus {
   outline: none;
-  border-color: var(--logo-color);
+  border-color: var(--color-success);
   box-shadow: 0 0 0 2px rgba(56, 161, 105, 0.2);
 }

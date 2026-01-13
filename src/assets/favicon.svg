@@ -1,0 +1,38 @@
+<svg
+  width="100"
+  height="100"
+  viewBox="0 0 100 100"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g transform="translate(50, 50)">
+    <!-- Root node -->
+    <circle cx="0" cy="25" r="7" fill="#2F855A" />
+    
+    <!-- Second level -->
+    <circle cx="-15" cy="5" r="7" fill="#38A169" />
+    <circle cx="15" cy="5" r="7" fill="#38A169" />
+    
+    <!-- Top level (leaves) -->
+    <circle cx="-25" cy="-15" r="7" fill="#48BB78" />
+    <circle cx="-8" cy="-15" r="7" fill="#48BB78" />
+    <circle cx="8" cy="-15" r="7" fill="#48BB78" />
+    <circle cx="25" cy="-15" r="7" fill="#48BB78" />
+    
+    <!-- Connections -->
+    <path
+      d="M0 25 L-15 5 M0 25 L15 5 M-15 5 L-25 -15 M-15 5 L-8 -15 M15 5 L8 -15 M15 5 L25 -15"
+      stroke="#2F855A"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+    
+    <!-- Trunk -->
+    <path
+      d="M0 40 L0 25"
+      stroke="#2F855A"
+      stroke-width="4"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

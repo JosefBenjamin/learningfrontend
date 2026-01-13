@@ -34,20 +34,20 @@
 .input,
 .textarea,
 .select {
-  background-color: var(--bg-darkmode);
-  border: 1px solid var(--text-dim);
-  border-radius: var(--radius);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-text-muted);
+  border-radius: var(--border-radius);
   padding: 0.75rem 1rem;
-  color: var(--text-main);
+  color: var(--color-text);
   font-size: 1rem;
-  transition: border-color var(--transititon);
+  transition: border-color var(--transition);
 }
 
 .input:focus,
 .textarea:focus,
 .select:focus {
   outline: none;
-  border-color: var(--accent-purple);
+  border-color: var(--color-primary);
 }
 
 .textarea {
@@ -61,29 +61,29 @@
 }
 
 .select option {
-  background-color: var(--bg-darkmode);
-  color: var(--text-main);
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 .btn {
-  background-color: var(--bg-darkmode);
+  background-color: var(--color-background);
   color: #47a070;
   border: none;
   padding: 12px 20px;
   text-align: center;
-  border-radius: var(--radius);
+  border-radius: var(--border-radius);
   width: 100%;
   display: block;
   font-size: 16px;
   font-weight: bold;
   margin-top: 10px;
-  transition: var(--transititon);
+  transition: var(--transition);
   cursor: pointer;
 }
 
 .btn:hover {
   color: white;
-  background-color: var(--accent-hover);
+  background-color: var(--color-primary-light);
 }
 
 .btn:disabled {
