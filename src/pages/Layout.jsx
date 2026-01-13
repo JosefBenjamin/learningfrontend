@@ -98,7 +98,7 @@ function Layout({ isLoggedIn, onLoginChange }) {
   // Main layout structure
   return (
     <div className={styles.wrapper}>
-      <main className={styles.mainContent}>
+      <main className={styles.main}>
         <Outlet context={{ searchQuery, isLoggedIn }} />
       </main>
 
