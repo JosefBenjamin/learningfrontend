@@ -52,8 +52,6 @@
   line-height: 1.6;
   margin: 0 0 1rem 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
@@ -109,4 +107,28 @@
   height: auto;
   border-radius: var(--border-radius);
   margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    padding-right: 0;           /* Remove space reserved for badges */
+  }
+
+  /* Move badges from absolute position to inline */
+  .formatBadge,
+  .subBadge {
+    position: static;           /* Flow with content instead of floating */
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .embedContainer {
+    padding-bottom: 75%;        /* Taller ratio for mobile viewing */
+  }
 }
