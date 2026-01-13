@@ -1,5 +1,5 @@
-import { NavLink, useLocation, Outlet } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useLocation, Outlet, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styles from "./Layout.module.css";
 import Logo from "../components/Logo.jsx";
 import Login from "./auth/Login.jsx";
@@ -10,12 +10,20 @@ import Logout from "../components/loggedIn/Logout.jsx";
 // Now receives isLoggedIn and onLoginChange as props
 function Layout({ isLoggedIn, onLoginChange }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Check if we're on a feed page (where search makes sense)
+  // redirection
+  useEffect(() => {
+    if (location.pathname === "/create" && !isLoggedIn) {
+      navigate("/login");
+    }
+  }, [location.pathname, isLoggedIn, navigate]);
+
+  // feed page (where search makes sense)
   const isOnFeed = location.pathname === "/" || location.pathname.startsWith("/feed");
 
-  // Sidebar dynamic rendering
+  // Sidebar dynamic rendering function
   const renderSidebarContent = () => {
     if (location.pathname === "/login" && !isLoggedIn) {
       return (
@@ -40,6 +48,7 @@ function Layout({ isLoggedIn, onLoginChange }) {
       );
     }
 
+
     // Default: Navigation Links
     return (
       <div className={styles.navLinks}>
@@ -49,6 +58,7 @@ function Layout({ isLoggedIn, onLoginChange }) {
         >
           Feed
         </NavLink>
+
 
         {isLoggedIn ? (
           <>
@@ -89,7 +99,7 @@ function Layout({ isLoggedIn, onLoginChange }) {
   return (
     <div className={styles.wrapper}>
       <main className={styles.mainContent}>
-        <Outlet context={{ searchQuery }} />
+        <Outlet context={{ searchQuery, isLoggedIn }} />
       </main>
 
       <nav className={styles.navbar}>
@@ -100,7 +110,7 @@ function Layout({ isLoggedIn, onLoginChange }) {
         {isOnFeed && (
           <input
             type="text"
-            placeholder="Search resources..."
+            placeholder="Search learning resources..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className={styles.searchInput}

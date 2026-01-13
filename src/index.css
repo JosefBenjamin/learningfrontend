@@ -1,21 +1,26 @@
 :root {
-    --bg-darkmode: #20212D; 
-    --bg-card: #383350; 
+    /* Background colors */
+    --color-background: #20212D;
+    --color-card: #383350;
 
-    --accent-purple: hsl(258, 90%, 66%);
-    --accent-hover: #a78bfa;
-    --text-main: #e2e8f0;
-    --text-dim: #94a3b8;
-    --logo-color: #38A169;
+    /* Brand/accent colors */
+    --color-primary: hsl(258, 90%, 66%);
+    --color-primary-light: #a78bfa;
+    --color-success: #38A169;
 
-    --radius: 8px;
-    --transititon: 0.3s ease;
+    /* Text colors */
+    --color-text: #e2e8f0;
+    --color-text-muted: #94a3b8;
+
+    /* Utilities */
+    --border-radius: 8px;
+    --transition: 0.3s ease;
 }
 
 body {
     margin: 0;
-    background-color: var(--bg-darkmode);
-    color: var(--text-main);
-    font-family: 'Inter', system-uni, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: 'Inter', sans-serif;
     min-height: 100vh;
 }

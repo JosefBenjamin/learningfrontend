@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route 
+        <Route // index route
           path="/" 
           element={
             <Layout 
@@ -24,11 +24,14 @@ function App() {
             />
           }
         >
+            {/*SIDEBAR PANEL*/}
           <Route index element={<Feed />} />
           <Route path="login" element={<Feed />} />
           <Route path="register" element={<Feed />} />
           <Route path="create" element={<Feed />} />
+
         </Route>
+        <Route path="*" element={<h1>404 PAGE NOT FOUND, DON'T MAKE UP WITH YOUR OWN PATHS, PAL!</h1>} />
       </Routes>
     </>
   );

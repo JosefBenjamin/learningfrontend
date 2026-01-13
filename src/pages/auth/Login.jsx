@@ -8,24 +8,20 @@ function Login({ onLoginChange }) {
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents the page from reloading
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevents the page from reloading
     setLoading(true);
     setErrorMsg("");
 
     // Extracting data from the form fields
-    const { username, password } = e.target.elements;
+    const { username, password } = event.target.elements;
 
     try {
       await apiFacade.login(username.value, password.value);
-      console.log("Login successful, token stored");
       onLoginChange();
-      console.log("onLoginChange completed");
       navigate("/");
-      console.log("navigate completed");
-    } catch (err) {
-      console.error("Error caught:", err);
-      setErrorMsg(err.fullErrorData?.msg || "Login failed. Try again.");
+    } catch {
+      setErrorMsg("Login failed. Try again.");
     } finally {
       setLoading(false);
     }
