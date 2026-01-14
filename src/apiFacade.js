@@ -99,8 +99,8 @@ const login = async (username, password) => {
     setToken(data.token);
     return data;
 }
-
-const feed = async (page = 0, limit) => {
+//fix
+const feed = async (page = 0, limit = 100) => {
     const options = makeOptions("GET", false, null);
     // pagination
     const response = await fetch(API_BASE_URL +
